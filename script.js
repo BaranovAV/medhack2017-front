@@ -7,9 +7,9 @@ $("#contactForm").submit(function(event){
 
 function submitStartForm(){
     // Инициируем переменную с содержимым формы
-    var name = $("#inputName3").val();
-    var email = $("#inputEmail3").val();
-    var passwd = $("#inputPassword3").val();
+    let name = $("#inputName3").val();
+    let email = $("#inputEmail3").val();
+    let passwd = $("#inputPassword3").val();
 
 
     $.ajax({
