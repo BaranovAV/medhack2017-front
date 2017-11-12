@@ -1,5 +1,5 @@
 $("#contactForm").submit(function(event){
-	//$( "#succesMessage" ).removeClass( "hidden" );
+	// $( "#succesMessage" ).removeClass( "hidden" );
     // отменяет отправку данных формы
     event.preventDefault();
     submitStartForm();
@@ -27,5 +27,5 @@ function submitStartForm(){
 function formSuccess(){
     $( "#succesMessage" ).removeClass( "hidden" );
     //wait
-    setTimeout('document.location.replace("proceed.html")', 1000);
+    // setTimeout('document.location.replace("proceed.html")', 1000);
 }

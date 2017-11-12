@@ -21,6 +21,7 @@ $Body .= "\n";
 
 // отправляем электронную почту
 //$success = mail($EmailTo, $Subject, $Body, "From:".$email);
+$success=true;
 
 // перенаправляем на страницу сообщения об успешной отправке данных формы
 if ($success){
