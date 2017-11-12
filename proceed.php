@@ -12,13 +12,21 @@
     <script src="js/jquery.3.2.1.min.js"></script>
     <script>
         $(document).ready(function() {
+            $(['#pain-check','#dyspnea-check','#cough-check'].join()).click(function () {
+                let obj=$(this);
+                obj.parents('.form-group').children('.panel-body').find('select').each(function(k,v){ $(v).prop('disabled', !obj.prop('checked')) });
+                obj.parents('.form-group').children('.panel-body').find('input').each(function(k,v){ $(v).prop('disabled', !obj.prop('checked')) });
+            });
         });
     </script>
 </head>
+<style>
+    .panel-body .row {
+        margin-top: 5px;
+    }
+</style>
 <body>
-<?
-$minCol=4;
-?>
+<? $minCol=4; ?>
 <br>
 <br>
 <br>
@@ -44,7 +52,10 @@ $minCol=4;
                     <div class="row">
                         <label for="temperature" class="col-sm-<?=$minCol?> control-label">Температура тела</label>
                         <div class="col-sm-2">
-                            <input id="temperature" name="temperature" type="text" class="form-control">
+                            <input id="temperature" name="temperature" type="text" class="form-control" placeholder="36,6">
+                        </div>
+                        <div class="col-sm-1 control-label pull-left">
+                            C°
                         </div>
                     </div>
                 </div>
@@ -53,11 +64,88 @@ $minCol=4;
                     <div class="row panel-body">
                         <label for="sistolic" class="col-sm-<?=$minCol?> control-label">Систолическое</label>
                         <div class="col-sm-2">
-                            <input id="sistolic" name="sistolic" type="text" class="form-control">
+                            <input id="sistolic" name="sistolic" type="text" class="form-control" placeholder="mm">
                         </div>
                         <label for="diastolic" class="col-sm-<?=$minCol?> control-label">Диастолическое</label>
                         <div class="col-sm-2">
-                            <input id="diastolic" name="diastolic" type="text" class="form-control">
+                            <input id="diastolic" name="diastolic" type="text" class="form-control" placeholder="mm">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group panel panel-info">
+                    <div class="panel-heading"><input id="pain-check" type="checkbox"><label for="pain-check">Боль</label></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label for="pain-area" class="col-sm-<?=$minCol?> control-label">Область</label>
+                            <div class="col-sm-<?=12-$minCol?>">
+                                <input id="pain-area" name="pain" class="form-control" type="text" placeholder="левая грудь" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="pain-2" class="col-sm-<?=$minCol?> control-label">Где отдается</label>
+                            <div class="col-sm-<?=12-$minCol?>">
+                                <input id="pain-2" name="pain[2]" class="form-control" type="text" placeholder="правая грудь" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="pain-type" class="col-sm-<?=$minCol?> control-label">Характер</label>
+                            <div class="col-sm-<?=12-$minCol?>">
+                                <select id="pain-type" name="pain[type]" class="form-control" disabled>
+                                    <option value="0">острая</option>
+                                    <option value="1">ноющая</option>
+                                    <option value="2">тупая</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="pain-volume" class="col-sm-<?=$minCol?> control-label">Сила</label>
+                            <div class="col-sm-<?=12-$minCol?>">
+                                <select id="pain-volume" name="pain[volume]" class="form-control" disabled>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group panel panel-info">
+                    <div class="panel-heading"><input id="dyspnea-check" type="checkbox"><label for="dyspnea-check">Одышка</label></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label for="dyspnea-type" class="col-sm-<?=$minCol?> control-label">Тип</label>
+                            <div class="col-sm-<?=12-$minCol?> ">
+                                <select id="dyspnea-type" name="dyspnea[type]" class="form-control" disabled>
+                                    <option value="1">Инспираторная</option>
+                                    <option value="2">Экспираторная</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="dyspnea-type" class="col-sm-<?=$minCol?> control-label">При подъеме на</label>
+                            <div class="col-sm-<?=12-$minCol?> ">
+                                <select id="dyspnea-up" name="dyspnea[up]" class="form-control" disabled>
+                                    <option selected>-</option>
+                                    <option value="1">1 этаж</option>
+                                    <option value="2">2 этаж</option>
+                                    <option value="3">3 этаж</option>
+                                    <option value="4">4 этаж</option>
+                                    <option value="5">5 этаж</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="dyspnea-type" class="col-sm-<?=$minCol?> control-label">При проходе по прямой</label>
+                            <div class="col-sm-2">
+                                <input id="dyspnea-forward" name="dyspnea[forward]" class="form-control" type="text" disabled>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,7 +155,7 @@ $minCol=4;
                         <div class="row">
                             <label for="cough" class="col-sm-<?=$minCol?> control-label">Тип</label>
                             <div class="col-sm-<?=12-$minCol?>">
-                                <select id="cough" name="cough" class="form-control">
+                                <select id="cough" name="cough" class="form-control" disabled>
                                     <option selected>-</option>
                                     <option value="1">Сухой</option>
                                     <option value="2">Влажный</option>
@@ -77,7 +165,7 @@ $minCol=4;
                         <div class="row">
                             <label for="cough2" class="col-sm-<?=$minCol?> control-label">Выделения</label>
                             <div class="col-sm-<?=12-$minCol?>">
-                                <select id="cough2" name="cough2" class="form-control">
+                                <select id="cough2" name="cough2" class="form-control" disabled>
                                     <option selected>-</option>
                                     <option value="1">слизистые</option>
                                     <option value="0">гнойные</option>
@@ -116,37 +204,10 @@ $minCol=4;
                     </select>
                 </div>
                 <div class="form-group">
-                    <div class="form-group panel panel-info">
-                        <div class="panel-heading"><input id="cough-check" type="checkbox"><label for="cough-check">Одышка</label></div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <label for="dyspnea-type" class="col-sm-<?=$minCol?> control-label">Тип</label>
-                                <div class="col-sm-col-sm-<?=12-$minCol?> ">
-                                    <select id="dyspnea-type" name="dyspnea[type]" class="form-control">
-                                        <option value="1">Инспираторная</option>
-                                        <option value="2">Экспираторная</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    <label for="dyspnea-up" class="control-label">При подъеме на</label>
-                    <select id="dyspnea-up" name="dyspnea[up]" class="form-control">
-                        <option selected>-</option>
-                        <option value="1">1 этаж</option>
-                        <option value="2">2 этаж</option>
-                        <option value="3">3 этаж</option>
-                        <option value="4">4 этаж</option>
-                        <option value="5">5 этаж</option>
-                    </select>
-                    <label for="dyspnea-forward" class="control-label">При Проходе по прямой</label>
-                    <input id="dyspnea-forward" name="dyspnea[forward]" class="form-control" type="text">
-                </div>
-                <div class="form-group">
                     <label for="nausea" class="control-label">Тошнота</label>
                     <select id="nausea" name="nausea" class="form-control">
-                        <option selected>-</option>
                         <option value="1">Да</option>
-                        <option value="0">Нет</option>
+                        <option value="0" selected>Нет</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -158,52 +219,30 @@ $minCol=4;
                     <input id="diarrhea" name="diarrhea" class="form-control" type="text">
                 </div>
                 <div class="form-group">
-                    <label for="mayor-pain" class="control-label">Запор (количество дней)</label>
-                    <input id="mayor-pain" name="mayor-pain" class="form-control" type="text">
+                    <label for="constipation" class="control-label">Запор (количество дней)</label>
+                    <input id="constipation" name="constipation" class="form-control" type="text">
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Боль:</label><br>
-                    <label for="pain-area" class="control-label">Область</label>
-                    <input id="pain-area" name="pain" class="form-control" type="text">
-                    <label for="pain-2" class="control-label">Где отдается</label>
-                    <input id="pain-2" name="pain[2]" class="form-control" type="text">
-                    <label for="pain-type" class="control-label">Характер</label>
-                    <select id="pain-type" name="pain[type]" class="form-control">
-                        <option selected>-</option>
-                        <option value="0">острая</option>
-                        <option value="1">ноющая</option>
-                        <option value="2">тупая</option>
-                    </select>
-                    <label for="pain-volume" class="control-label">Сила</label>
-                    <select id="pain-volume" name="pain[volume]" class="form-control">
-                        <option selected>-</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
+                <div class="form-group panel panel-info">
+                    <div class="panel-heading">Привычки</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label for="habbits-smoke-period" class="col-sm-<?=$minCol?> control-label">Стаж курения</label>
+                            <div class="col-sm-2">
+                                <input id="habbits-smoke-period" name="habbits[smoke][period]" class="form-control" type="text">
+                            </div>
+                            <label for="habbits-smoke-period" class="col-sm-<?=$minCol?> control-label">Потребление в день</label>
+                            <div class="col-sm-2">
+                                <input id="habbits-smoke-sigarette" name="habbits[smoke][sigarette]" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="habbits-alcohol" class="col-sm-<?=$minCol?> control-label">Потребление алкоголя в неделю</label>
+                            <div class="col-sm-2">
+                                <input id="habbits-alcohol" name="habbits[alcohol]" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Привычки</label><br>
-                    <label class="control-label">Курение</label><br>
-                    <label for="habbits-smoke-period" class="control-label">Стаж (лет)</label>
-                    <input id="habbits-smoke-period" name="habbits[smoke][period]" class="form-control" type="text">
-                    <label for="habbits-smoke-sigarette" class="control-label">Потребление в день (мл)</label>
-                    <input id="habbits-smoke-sigarette" name="habbits[smoke][sigarette]" class="form-control" type="text">
-                    <label class="control-label">Алкоголь</label><br>
-                    <label for="habbits-alcohol" class="control-label">Потребление в неделю (мл)</label>
-                    <input id="habbits-alcohol" name="habbits[alcohol]" class="form-control" type="text">
-                </div>
-
-
-
                 <div class="form-group">
                     <button class="btn btn-success">Отправить</button>
                 </div>
