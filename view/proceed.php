@@ -1,8 +1,13 @@
 <? $minCol=4; ?>
+<style>
+    .panel-body > .row {
+        margin-top: 5px;
+    }
+</style>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h2>Hello, world!</h2>
-        <form action="?/view=proceed" method="post" id="proceedForm">
+        <form action="process.php" method="post" id="proceedForm">
             <div class="form-group">
                 <div class="row">
                     <label for="reason" class="col-sm-<?=$minCol?> control-label">Цель обращения</label>
@@ -228,11 +233,12 @@
         });
     });
     $("#proceedForm").submit(function(event){
+        form=$("#proceedForm");
         event.preventDefault();
         $.ajax({
-            type: this.method,
-            url: this.action,
-            data: this.serialize(),
+            type: form.prop('method'),
+            url: form.prop('action'),
+            data: form.serialize(),
             success : function(text){
                 if (text == "success"){
                     setTimeout('document.location.replace("?")', 1000);
